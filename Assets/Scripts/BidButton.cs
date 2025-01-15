@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour
+public class BidButton : MonoBehaviour
 {
-    //public List<Sprite> card;
-    public List<Card> card;
+    public int bidVal;
+    public int bidIndex;
+    public BidManager bidManager;
     
     // Start is called before the first frame update
     void Start()
@@ -17,5 +18,10 @@ public class Deck : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlaceBid()
+    {
+        bidManager.bid[bidIndex] = bidVal;
     }
 }

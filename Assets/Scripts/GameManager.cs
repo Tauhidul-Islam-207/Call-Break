@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour
     public int turnIndex = 0;
     public int turnCount = 0;
 
+    public bool p1LackSuit;
+    public bool p2LackSuit;
+    public bool p3LackSuit;
+    public bool p4LackSuit;
+
 
 
     // Start is called before the first frame update
@@ -53,9 +58,12 @@ public class GameManager : MonoBehaviour
         {
             turnIndex = winnerIndex;
             turnCount = 0;
+            //Invoke("ResetTrick", 2f);
         }
 
         SetTurn(turnIndex);
+
+        CheckLackingSuit();
     }
 
     public void DealDeck()
@@ -355,6 +363,64 @@ public class GameManager : MonoBehaviour
                 p3Cards[i].isClickable = false;
                 p1Cards[i].isClickable = false;
             }
+        }
+    }
+
+    public void CheckLackingSuit()
+    {
+        if(leadSuit != "")
+        {
+            for(int i = 0; i<p1Cards.Count; i++)
+            {
+                if((p1Cards[i].cardSuit == leadSuit || p1Cards[i].cardSuit == "Spade") && !activeCard.Contains(p1Cards[i].gameObject))
+                {           
+                    p1LackSuit = false;
+                    break;
+                }
+                
+                p1LackSuit = true;
+            }
+
+            for(int i = 0; i<p2Cards.Count; i++)
+            {
+                if((p2Cards[i].cardSuit == leadSuit || p2Cards[i].cardSuit == "Spade") && !activeCard.Contains(p2Cards[i].gameObject))
+                {           
+                    p2LackSuit = false;
+                    break;
+                }
+                
+                p2LackSuit = true;
+            }
+
+            for(int i = 0; i<p3Cards.Count; i++)
+            {
+                if((p3Cards[i].cardSuit == leadSuit || p3Cards[i].cardSuit == "Spade") && !activeCard.Contains(p3Cards[i].gameObject))
+                {           
+                    p3LackSuit = false;
+                    break;
+                }
+                
+                p3LackSuit = true;
+            }
+
+            for(int i = 0; i<p4Cards.Count; i++)
+            {
+                if((p4Cards[i].cardSuit == leadSuit || p4Cards[i].cardSuit == "Spade") && !activeCard.Contains(p4Cards[i].gameObject))
+                {           
+                    p4LackSuit = false;
+                    break;
+                }
+                
+                p4LackSuit = true;
+            }
+        }
+
+        if(leadSuit == "")
+        {
+            p1LackSuit = false;
+            p2LackSuit = false;
+            p3LackSuit = false;
+            p4LackSuit = false;
         }
     }
 

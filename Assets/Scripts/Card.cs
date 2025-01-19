@@ -10,5 +10,6 @@ public class Card : ScriptableObject
     public string cardSuit;
     public int cardValue;
     public Sprite cardImage;
+    
 
 }

@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     public int roundCompleted = 0;
     public int trickCompleted = 0;
     public ScoreManager scoreManager;
+    public int winnerIndex = 0;
+    public int turnIndex = 0;
+    public int turnCount = 0;
 
 
 
@@ -40,6 +43,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CheckScore();
+
+        if(turnIndex>3)
+        {
+            turnIndex = 0;
+        }
+        
+        if(turnCount == 4)
+        {
+            turnIndex = winnerIndex;
+            turnCount = 0;
+        }
+
+        SetTurn(turnIndex);
     }
 
     public void DealDeck()
@@ -135,6 +151,7 @@ public class GameManager : MonoBehaviour
             {
                 highCard = tableCards[i].cardValue;
                 highIndex = i;
+                winnerIndex = i;
             }
         }
 
@@ -144,6 +161,7 @@ public class GameManager : MonoBehaviour
             {
                 highCard = tableCards[i].cardValue;
                 highIndex = i;
+                winnerIndex = i;
             }
         }
 
@@ -275,5 +293,70 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
+
+
+    public void SetTurn(int currentTurn)
+    {
+        if(currentTurn == 0)
+        {
+            for(int i = 0; i<p1Cards.Count;i++)
+            {
+                p1Cards[i].isClickable = true;
+            }
+
+            for(int i = 0; i<p1Cards.Count;i++)
+            {
+                p2Cards[i].isClickable = false;
+                p3Cards[i].isClickable = false;
+                p4Cards[i].isClickable = false;
+            }
+        }
+
+        if(currentTurn == 1)
+        {
+            for(int i = 0; i<p2Cards.Count;i++)
+            {
+                p2Cards[i].isClickable = true;
+            }
+
+            for(int i = 0; i<p2Cards.Count;i++)
+            {
+                p1Cards[i].isClickable = false;
+                p3Cards[i].isClickable = false;
+                p4Cards[i].isClickable = false;
+            }
+        }
+
+        if(currentTurn == 2)
+        {
+            for(int i = 0; i<p3Cards.Count;i++)
+            {
+                p3Cards[i].isClickable = true;
+            }
+
+            for(int i = 0; i<p3Cards.Count;i++)
+            {
+                p2Cards[i].isClickable = false;
+                p1Cards[i].isClickable = false;
+                p4Cards[i].isClickable = false;
+            }
+        }
+
+        if(currentTurn == 3)
+        {
+            for(int i = 0; i<p4Cards.Count;i++)
+            {
+                p4Cards[i].isClickable = true;
+            }
+
+            for(int i = 0; i<p4Cards.Count;i++)
+            {
+                p2Cards[i].isClickable = false;
+                p3Cards[i].isClickable = false;
+                p1Cards[i].isClickable = false;
+            }
+        }
+    }
+
 
 }

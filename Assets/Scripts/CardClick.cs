@@ -23,26 +23,34 @@ public class CardClick : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(gameManager.trickCount < 4)
+        if(clickedCard.isClickable)
         {
-            gameManager.trickCount++;
-
-            Debug.Log("Sprite clicked!");
-            
-            if(!gameManager.isStart)
+            if(clickedCard.cardSuit == gameManager.leadSuit || clickedCard.cardSuit == "Spade" || gameManager.leadSuit == "")
             {
-                gameManager.SetLeadSuit(clickedCard);
-            }
+                if(gameManager.trickCount < 4)
+                {
+                    gameManager.trickCount++;
+                    gameManager.turnIndex++;
+                    gameManager.turnCount++;      
 
-            tableCard.gameObject.SetActive(true);
-            gameObject.SetActive(false);
-            gameManager.activeCard.Add(gameObject);
+                    Debug.Log("Sprite clicked!");
+                    
+                    if(!gameManager.isStart)
+                    {
+                        gameManager.SetLeadSuit(clickedCard);
+                    }
 
-            TriggerEvent();
+                    tableCard.gameObject.SetActive(true);
+                    gameObject.SetActive(false);
+                    gameManager.activeCard.Add(gameObject);
 
-            if(gameManager.trickCount == 4)
-            {
-                gameManager.CheckTrick();
+                    TriggerEvent();
+
+                    if(gameManager.trickCount == 4)
+                    {
+                        gameManager.CheckTrick();
+                    }
+                }
             }
         }
         

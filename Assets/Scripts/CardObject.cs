@@ -7,6 +7,7 @@ public class CardObject : MonoBehaviour
     public string cardSuit;
     public int cardValue;
     public Sprite cardImage;
+    public bool isClickable;
     
     // Start is called before the first frame update
     void Start()
